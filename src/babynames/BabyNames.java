@@ -14,17 +14,8 @@ import java.io.File;
  * @author tians
  */
 public class BabyNames {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        BabyNames bn = new BabyNames();
-        bn.testGetTotalBirthsRankedHigher();
-    }
     
-    public void printNames(){
+    public static void printNames(){
         FileResource fr = new FileResource();
         for(CSVRecord record : fr.getCSVParser(false)){
             System.out.println("Name: " + record.get(0) + ", " +
@@ -33,7 +24,7 @@ public class BabyNames {
         }
     }
     
-    public void totalBirths(FileResource fr){
+    public static void totalBirths(FileResource fr){
         int totalBirths = 0;
         int totalBirthsBoys = 0;
         int totalBirthsGirls = 0;
@@ -57,7 +48,7 @@ public class BabyNames {
         System.out.println("Total birth boys: " + totalBirthsBoys);
         System.out.println("Total birth girls: " + totalBirthsGirls);
     }
-    public void testTotalBirths(){
+    public static void testTotalBirths(){
         //FileResource fr = new FileResource("data/example-small.csv");
         FileResource fr = new FileResource();
         totalBirths(fr);
@@ -67,7 +58,7 @@ public class BabyNames {
      * returns the rank of the name in the file for the given gender, where 
      * rank 1 is the name with the largest number of births
     */
-    public int getRank(int year, String name, String gender){
+    public static int getRank(int year, String name, String gender){
         int rank = -1;
         int girlCounter = 0;
         int boyCounter = 0;
@@ -89,7 +80,7 @@ public class BabyNames {
         }
         return rank;
     }
-    public void testGetRank(){
+    public static void testGetRank(){
         int year = 1960;
         String name = "Emily";
         String gender = "F";
@@ -100,7 +91,7 @@ public class BabyNames {
      * returns the name of the person in the file at this rank, for the given gender
      * If the rank does not exist in the file, then “NO NAME” is returned.
     */
-    public String getName(int year, int rank, String gender){
+    public static String getName(int year, int rank, String gender){
         int girlCounter = 0;
         int boyCounter = 0;
         String name = "NO NAME";
@@ -122,7 +113,7 @@ public class BabyNames {
         }
         return name;
     }
-    public void testGetName(){
+    public static void testGetName(){
         int year = 1980;
         int rank = 350;
         String gender = "F";
@@ -134,12 +125,12 @@ public class BabyNames {
      * based on the same popularity. That is, determine the rank of name 
      * in the year they were born, and then print the name born in newYear that is at the same rank and same gender
     */
-    public String whatIsNameInYear(String name, int year, int newYear, String gender){
+    public static String whatIsNameInYear(String name, int year, int newYear, String gender){
         int originalRank = getRank(year, name, gender);
         if(originalRank == -1) return "NO NAME";
         return getName(newYear, originalRank, gender);
     }
-    public void testWhatIsNameInYear(){
+    public static void testWhatIsNameInYear(){
         String name = "Susan";
         int year = 1972;
         int newYear = 2014;
@@ -152,7 +143,7 @@ public class BabyNames {
      * the year with the highest rank for the name and gender.
      * If the name and gender are not in any of the selected files, it should return -1.
     */
-    public int yearOfHighestRank(String name, String gender){
+    public static int yearOfHighestRank(String name, String gender){
         int yearOfHighestRank = -1;
         int highestRank = Integer.MAX_VALUE;
         DirectoryResource dir = new DirectoryResource();
@@ -168,7 +159,7 @@ public class BabyNames {
         }
         return yearOfHighestRank;
     }
-    public void testYearOfHighestRank(){
+    public static void testYearOfHighestRank(){
         String name = "Mich";
         String gender = "M";
         System.out.println(name + " was highest ranked in the year of: " + yearOfHighestRank(name, gender));
@@ -178,7 +169,7 @@ public class BabyNames {
      * returns a double representing the average rank of the name and gender over the selected files.
      * It returns -1.0 if the name is not ranked in any of the selected files
     */
-    public double getAverageRank(String name, String gender){
+    public static double getAverageRank(String name, String gender){
         double sumOfRanks = 0.0;
         StorageResource fileNameList = new StorageResource();
         DirectoryResource dir = new DirectoryResource();
@@ -191,7 +182,7 @@ public class BabyNames {
         }
         return sumOfRanks / (double) fileNameList.size();
     }
-    public void testGetAverageRank(){
+    public static void testGetAverageRank(){
         String name = "Susan";
         String gender = "F";
         System.out.println(name + " has the average rank in the selected years of: " + getAverageRank(name, gender));
@@ -201,7 +192,7 @@ public class BabyNames {
      * returns an integer, the total number of births of those names with the 
      * same gender and same year who are ranked higher than name
     */
-    public int getTotalBirthsRankedHigher(int year, String name, String gender){
+    public static int getTotalBirthsRankedHigher(int year, String name, String gender){
         int total = 0;
         int rankOfName = getRank(year, name, gender);
         int birthNumOfName = 0;
@@ -218,7 +209,7 @@ public class BabyNames {
         }
         return total;
     }
-    public void testGetTotalBirthsRankedHigher(){
+    public static void testGetTotalBirthsRankedHigher(){
         int year = 1990;
         String name = "Drew";
         String gender = "M";
